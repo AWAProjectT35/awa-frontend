@@ -6,7 +6,7 @@ import { UserContext } from './UserContext';
 import Header from './components/Header';
 import Home from './components/Home';
 import Restaurants from './components/Restaurants';
-import { RestaurantMenu } from './components/RestaurantMenu';
+import RestaurantMenu from './components/RestaurantMenu';
 import { menuData } from './data.menu';
 import { restaurantData } from './data.restaurants';
 import Login from './components/Login';
@@ -15,37 +15,38 @@ import Footer from './components/Footer';
 
 function App() {
 
-  const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
 
-  const value = useMemo(() => ({ user, setUser}), [user, setUser]);
+    const value = useMemo(() => ({ user, setUser}), [user, setUser]);
 
-  const restaurants = restaurantData.map( data => {
-   return { ...data, id: uuidv4()}
-  });
+    const restaurants = restaurantData.map( data => {
+        return { ...data, id: uuidv4()}
+    });
 
-  const menuDataIds = menuData.map( data => {
-    return { ...data, id: uuidv4()}
-  });
-  
-  return (
-    <BrowserRouter>
-      <UserContext.Provider value={value}>
-        <Header />
+    const menuDataIds = menuData.map( data => {
+        return { ...data, id: uuidv4()}
+    });
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/restaurants" element={<Restaurants restaurants={restaurants} />}>
-            <Route path=":id" element={
-              <RestaurantMenu  restaurants={restaurants} menuData={menuDataIds} />
-            } />
-          </Route>
-        </Routes>
+    return (
+        <BrowserRouter>
+        <UserContext.Provider value={value}>
+            <Header />
 
-        <Footer />
-      </UserContext.Provider>
-    </BrowserRouter>
-  );
+            <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/restaurants">
+                <Route path="" element={<Restaurants restaurants={restaurants} />} />
+                <Route path=":id" element={
+                <RestaurantMenu restaurants={restaurants} menuData={menuDataIds} />
+                } />
+            </Route>
+            </Routes>
+
+            <Footer />
+        </UserContext.Provider>
+        </BrowserRouter>
+    );
 }
 
 export default App;
