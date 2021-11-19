@@ -1,9 +1,9 @@
 import React from 'react'
 
 export default function Footer() {
-  return (
-    <div>
-      Hello from footer
-    </div>
-  )
+    return (
+        <div>
+            Hello from footer
+        </div>
+    )
 }

@@ -5,9 +5,9 @@ import Restaurant from './Restaurant';
 
 export default function Restaurants(props) {
 
-  return (
-    <div className={styles.container}>
-      {props.restaurants.map((data, key) => <Restaurant key={key} data={data} />)}
-    </div>
-  )
+    return (
+        <div className={styles.container}>
+            {props.restaurants.map((data, key) => <Restaurant key={key} data={data} />)}
+        </div>
+    )
 }
