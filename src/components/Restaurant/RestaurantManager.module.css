@@ -20,7 +20,7 @@
 }
 
 .box:hover {
-    border-color: rgb(228, 0, 0);
+border-color: rgb(228, 0, 0);
 }
 
 .box div {
@@ -32,7 +32,6 @@
    font-weight: 700;
    font-size: 18px;
    margin-left: 20px;
-   margin-bottom: 13px;
 }
 
 .restInfo {
@@ -46,18 +45,8 @@
     justify-content: center;
 }
 
-.buttonMenuContainer {
-    background-color: aliceblue;
-    width: 100%;
-    margin-left: 8px;
-    display: flex;
-    justify-content: center;
-}
-
 .buttonMenu {
-    width: 186px;
-    position: absolute;
-    top: 265px;
+    width: 185px;
 }
 
 .buttonEdit {
@@ -71,7 +60,7 @@
     height: 32px;
     margin: 6px;
     right: 2px;
-    top: 12px;
+    top: 2px;
 }
 
 .marginDiv {
@@ -82,7 +71,7 @@
 
 .buttonAddRestaurant {
     width: 226px;
-    height: 323px;
+    height: 319px;
     display: flex;
     justify-content: center;
     align-items: center;
