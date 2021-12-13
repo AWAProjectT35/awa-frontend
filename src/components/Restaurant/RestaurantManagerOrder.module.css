@@ -1,16 +1,3 @@
-.orderValues {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.orderCol {
-    margin-right: 12px;
-}
-
-.orderCol > *:nth-child(1) {
-    font-weight: 900;
-}
-
 .headersRow, .productsRow {
     display: flex;
     flex-direction: row;
@@ -21,58 +8,9 @@
 }
 
 .headersCol, .productsCol {
-    width: 150px;
+    width: 200px;
 }
 
 .productsRow {
     border-bottom: 1px solid lightgray;
-}
-
-.order  {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    width: 300px;
-}
-.products {
-    display: flex;
-    flex-direction: column;
-    /* width: 600px; */
-    justify-content: space-between;
-
-}
-.productRow {
-    display: flex;
-    flex-direction: row;
-}
-.productsHeaderRow {
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid black;
-}
-
-.orderHeader {
-    font-weight: 900;
-    border-bottom: 1px black solid;
-    margin-bottom: 5px;
-}
-.tag {
-    margin-top: 3px;
-    font-weight: bold;
-    color: gray;
-    border-bottom: 1px dotted gray;
-}
-.ButtonBox {
-    margin-top: 10px;
-    padding: 3px;
-    border-top: 1px solid black ;
-}
-.container {
-    padding: 10px;
-    /* width: 600px; */
-    display: flex;
-    flex-direction: row;
-
 }

@@ -4,19 +4,12 @@ import RestaurantManager from './RestaurantManager';
 import RestaurantManagerAdd from './RestaurantManagerAdd';
 
 
-export default function RestaurantsManager({requestGetRestaurants}) {
+export default function Restaurants(props) {
 
     return (
         <div className={styles.container}>
-            {requestGetRestaurants.getStateVar().map((restaurant, key) =>
-                <RestaurantManager
-                    restaurant={restaurant}
-                    key={key} />
-            )}
-
+            {props.restaurants.map((data, key) => <RestaurantManager key={key} data={data} />)}
             <RestaurantManagerAdd />
         </div>
     )
-
-    return (null)
 }
