@@ -1,0 +1,25 @@
+.container {
+    /* display: flex;
+    flex-direction: row;
+    justify-content:space-around; */
+    /* margin: 10px; */
+    width: 100%;
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* background-color: hotpink; */
+}
+.product {
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+}
+
+.foodName {
+    font-size: 33px;
+}
+.tag {
+    margin-top: 3px;
+    font-weight: bold;
+    color: gray;
+    border-bottom: 1px dotted gray;
+}

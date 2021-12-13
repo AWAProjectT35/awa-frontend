@@ -1,4 +1,4 @@
-.container {
+/* .container {
     display: grid;
     grid-template-columns: 135px auto;
     align-items: center;
@@ -13,4 +13,27 @@
 .buttonSave {
     width: 100%;
     margin-top: 6px;
+} */
+
+.container {
+    width: 600px;
+
+}
+.product {
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+}
+
+.foodName {
+    font-size: 33px;
+}
+.tag {
+    margin-top: 3px;
+    font-weight: bold;
+    color: gray;
+    border-bottom: 1px dotted gray;
+}
+input {
+    margin-top: 3px;
 }

@@ -1,14 +1,39 @@
 .container {
     display: flex;
     width: 100%;
+    padding: 5px;
+}
+a {
+  text-decoration: none;
 }
 
 .left {
     display: flex;
     flex-direction: column;
     width: 350px;
+    margin: 10px;
 }
-
+.buttonAddBox{
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
 .buttonAdd {
     width: 150px;
+}
+.menuItem {
+    color: black;
+    margin-top: 4px;
+}
+.menuItem::before {
+  content: ">";
+  background: lightgray;
+  border-radius: 1ch;
+  padding-inline: 1ch;
+  margin-inline-end: 1ch;    
+  color: gray;
+}
+.menuList {
+    margin-top: 5px;
+    padding: 5px;
+    /* border-left: 2px solid brown; */
 }

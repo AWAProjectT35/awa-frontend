@@ -4,7 +4,6 @@ import  { v4 as uuidv4 } from 'uuid';
 import  jwt  from 'jsonwebtoken';
 import { Context } from './components/Context';
 
-
 import Header from './components/Header';
 import Home from './components/Home';
 import Restaurants from './components/Restaurants';
@@ -17,13 +16,21 @@ import { RestaurantMenu } from './components/RestaurantMenu';
 import { RestaurantManagerView } from './components/Restaurant/RestaurantManagerView';
 import RestaurantManagerOrder from './components/Restaurant/RestaurantManagerOrder';
 import { menuData } from './data.menu';
-import { restaurantData } from './data.restaurants';
 import orders from './data.order.json';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Account from './components/Account';
 import ShoppingCart from './components/ShoppingCart'
 import Footer from './components/Footer';
+
+import {useData} from './components/DataProvider';
+
+import {RequestGet, RequestGetRestaurants, RequestPost, RequestPut} from './Tools/requestClasses';
+
+
+// axios constants
+const axios = require('axios').default;
+
 
 const currencyOptions = {
     minimumFractionDigits: 2,
@@ -37,9 +44,11 @@ const menuDataIds = menuData.map( data => {
     return { ...data, id: uuidv4()}
 });
 
+
 function App() {
 
     //CONSTS
+    const {restaurants, setRestaurants} = useData();
 
     //State for storing JWT.
     const [userJWT, setUserJWT] = useState(jwtFromStorage);
@@ -50,16 +59,19 @@ function App() {
     //Decoded JWT using jsonwebtoken.decoder.
     const jwtDecoded = jwt.decode(userJWT);
 
-    //Adding unique ids to restaurantData.
-    const restaurants = restaurantData.map( data => {
-        return { ...data, id: uuidv4()}
-        });
-    
+    const requestGetRestaurants = new RequestGetRestaurants(restaurants, setRestaurants);
 
+    const requestGetOrders = new RequestGet();
+    const requestPutOrders = new RequestPut();
+
+    const requestGetMenu = new RequestGet();
+    const requestPostMenu = new RequestPost();
+
+    const requestPostRestaurant = new RequestPost();
+    const requestPutRestaurant = new RequestPut();
     //CONSTS END
 
     //FUNCTIONS
-
     //Getting cart total via .reduce()
     function getTotal(cart) {
         const total = cart.reduce((totalCost, item) => totalCost + item.price, 0);
@@ -111,14 +123,17 @@ function App() {
     function empty(data) {
         setCart({ data, type: 'empty' });
     }
-
     //FUNCTIONS ENDS
+    //requestRestaurants(getRequestPathRestaurants, Constants.API_ADDRESS, setRestaurants);
 
     let authRoutes = <>
-            <Route path="/login" element={ <Login login={ (newJWT) => {
-                setUserJWT(newJWT)
-                window.localStorage.setItem("userJWT", newJWT)
-                } }/>} />
+            <Route path="/login" element={ <Login
+                login={ (newJWT) => {
+                    setUserJWT(newJWT);
+                    window.localStorage.setItem("userJWT", newJWT);
+                    requestGetRestaurants.request(newJWT);
+                } }
+            />} />
             <Route path="/signup" element={ <SignUp />} />
         </>
 
@@ -143,42 +158,45 @@ function App() {
         if (jwtDecoded.role === 'MANAGER') {
             restaurantsRoutes = <>
                 <Route path="/restaurants">
-                    <Route path="" element={<RestaurantsManager restaurants={restaurants} /> }/>
+                    <Route path="" element={<RestaurantsManager requestGetRestaurants={requestGetRestaurants} /> }/>
                     <Route path=":id"
                         element={<RestaurantManagerView
-                            restaurants={restaurants}
-                            menuData={menuDataIds}
-                            orders={orders} />
+                            requestGetRestaurants={requestGetRestaurants}
+                            requestGetOrders={requestGetOrders} />
                     }>
                         <Route path=":orderId"
                             element={<RestaurantManagerOrder
-                                restaurants={restaurants}
-                                menuData={menuDataIds}
-                                orders={orders} />} />
+                                requestGetRestaurants={requestGetRestaurants}
+                                requestGetOrders={requestGetOrders}
+                                requestPutOrders={requestPutOrders} />} />
                     </Route>
 
                     <Route path="/restaurants/manage">
                         <Route
                             path=""
                             element={<RestaurantsManagerManage
-                                restaurants={restaurants} />} />
+                                requestGetRestaurants={requestGetRestaurants} 
+                                requestPostRestaurant={requestPostRestaurant}
+                                requestPutRestaurant={requestPutRestaurant} />} />
                         <Route
                             path=":id"
                             element={<RestaurantsManagerManage
-                                restaurants={restaurants}
-                                menuData={menuDataIds} />} />
+                                requestGetRestaurants={requestGetRestaurants}
+                                requestPostRestaurant={requestPostRestaurant}
+                                requestPutRestaurant={requestPutRestaurant} />} />
                     </Route>
 
                     <Route path="/restaurants/menu/:id"
                         element={<RestaurantManagerMenu
-                            restaurants={restaurants}
-                            menuData={menuDataIds} />}
+                            requestGetMenu={requestGetMenu} />}
                     >
-                        <Route path="new" element={<RestaurantManagerMenuAdd />} />
+                        <Route path="new"
+                            element={<RestaurantManagerMenuAdd
+                                requestPostMenu={requestPostMenu}
+                                requestGetMenu={requestGetMenu} />} />
                         <Route path=":productId"
                             element={<RestaurantManagerProduct
-                                restaurants={restaurants}
-                                menuData={menuDataIds} /> } />
+                                requestGetMenu={requestGetMenu} /> } />
                     </Route>
                 </Route>
             </>
@@ -189,12 +207,14 @@ function App() {
   return (
     <Context.Provider value={{
         jwtDecoded, add,  remove, empty,
-         getTotal,  cart,  setCart, currencyOptions
+        getTotal,  cart,  setCart, currencyOptions,
+        userJWT, restaurants
     }}>
         <BrowserRouter>
             <Header userJWT={userJWT != null} logOut={() => {
-                setUserJWT(null)
+                setUserJWT(null);
                 window.localStorage.removeItem("userJWT");
+                requestGetRestaurants.request(null);
             }} />
 
             <Routes>

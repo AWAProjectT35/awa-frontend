@@ -1,34 +1,47 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, Outlet} from 'react-router-dom';
-import {GetRestaurant, GetMenu} from '../Tools';
 import styles from './RestaurantManagerMenu.module.css';
+import {useData} from '../DataProvider';
+import {useParams} from 'react-router';
 
-export default function RestaurantsManagerMenu({restaurants, menuData}) {
+export default function RestaurantsManagerMenu({requestGetMenu}) {
 
-    const restaurant = GetRestaurant(restaurants);
-    if (restaurant === null) return (<div>No restaurant found</div>);
+    const {userJWT, restaurants} = useData();
+    const params = useParams();
 
-    const menu = GetMenu(menuData, restaurant);
-    if (menu === null) return (<div>No menu found</div>);
+    //TODO: test if moving useState() to previous component forces reloading data if chaged
+    const [menu, setMenu] = useState([]);
+
+    requestGetMenu.setStateVar(menu);
+    requestGetMenu.setStateVarFnc(setMenu);
+
+    useEffect(() => {
+        requestGetMenu.request(userJWT, '/public/restaurants/' + params.id + '/menu');
+    }, [])
 
     return (
         <div className={styles.container}>
             <div className={styles.left}>
-                <Link to="new">
-                    <button className={styles.buttonAdd}>
-                        Add
-                    </button>
-                </Link>
-
-                {menu.map((item, i) =>
-                    <Link key={i} to={item.id}>
-                        <div>
-                            {item.name}
-                        </div>
+                <div className={styles.buttonAddBox}>
+                    <Link to="new">
+                        <button className={styles.buttonAdd}>
+                            Add
+                        </button>
                     </Link>
-                )}
-            </div>
+                </div>
 
+                <div className={styles.menuList}>
+
+                    {menu.map((item, i) =>
+                        <Link key={i} to={'' + item.productId}>
+                            <div className={styles.menuItem}>
+                                {item.name}
+                            </div>
+                        </Link>
+                    )}
+
+                </div>
+            </div>
             <div className={styles.right}>
                 <Outlet />
             </div>

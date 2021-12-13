@@ -16,7 +16,7 @@ export default function Login(props) {
         event.preventDefault();
         try {
             const result = await axios.post(
-                Constants.API_ADDRESS + '/loginForJWT',
+                Constants.API_ADDRESS + '/login',
                 null,
                 {
                     auth: {
@@ -26,16 +26,14 @@ export default function Login(props) {
                 }
             );
             
-            const receivedJWT = result.data.token
+            const receivedJWT = result.data.access_token
                 props.login(receivedJWT);
                     setTimeout(() => {
                         navigate('/', { replace: true })
                 },1800)
-
         } catch (error) {
             console.log(error);
         }
-
     }
 
     return (
@@ -67,6 +65,3 @@ export default function Login(props) {
         </div>
     )
 }
-
-
-
