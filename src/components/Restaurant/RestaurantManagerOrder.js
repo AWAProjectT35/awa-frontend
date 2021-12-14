@@ -99,6 +99,15 @@ export default function RestaurantManagerOrder({
                     )
                 })}
 
+            {(order.details.orderStatus === 0) ? (
+                    <>
+                        <input
+                            type="time"
+                            value={eta}
+                            onChange={ (e) => setEta(e.target.value) } />
+                        <br />
+                    </>
+                ) : null}
                 <div className={styles.ButtonBox}>
                 <button onClick={() => {
                     requestPutOrders.request(
@@ -156,25 +165,7 @@ export default function RestaurantManagerOrder({
                 </div>
             </div>
 
-            {(order.details.orderStatus === 0) ? (
-                    <>
-                        <input
-                            type="time"
-                            value={eta}
-                            onChange={ (e) => setEta(e.target.value) } />
-                        <br />
-                    </>
-                ) : null}
 
-            {/* <button onClick={() => {
-                requestPutOrders.request(
-                    userJWT,
-                    '/manager/restaurants/orders/' + params.orderId,
-                    {'status': (parseInt(order.details.orderStatus) + 1), 'eta': eta }
-                );
-            }}>
-                Status to: {orderStatuses[order.details.orderStatus + 1]}
-            </button> */}
         </div>
     )
 }
