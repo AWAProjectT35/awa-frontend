@@ -1,10 +1,10 @@
-.buttonDiv {
+.buttonDiv, .greyButton {
     display: flex;
     justify-content: center;
     padding-top: 25px;
 }
 
-.buttonDiv button {
+.buttonDiv * button , .greyButton button  {
     background-color: rgb(36, 72, 235);
     color: white;
     width: 150px;
@@ -13,6 +13,11 @@
     border-radius: 15px;
     font-size: 18px;
     font-weight: 900;
+    
+}
+
+.buttonDiv * button {
+    cursor: pointer;
 }
 
 .inputs {
@@ -32,4 +37,36 @@
     padding: 20px;
     border: 3px solid darkgray;
     border-radius: 15px;
+    width: 800px;
+    height: 150px;
+}
+
+
+.addText {
+    width: 100%;
+    height: 40px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.greenMarker {
+    background-color: rgb(44, 255, 2);
+    height: 5px;
+    width: 5px;
+    border-radius: 2rem;
+}
+.redMarker {
+    background-color: rgb(241, 3, 3);
+    height: 5px;
+    width: 5px;
+    border-radius: 2rem;
+}
+
+.greyButton button{
+    background-color: rgb(79, 79, 79) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -6,7 +6,7 @@ import {useData} from './DataProvider';
 
 
 
-export default function ShoppingCart({requestPostOrder}) {
+export default function ShoppingCart({requestPostOrder, payment, setPayment}) {
     
     const context = useContext(Context);
 
@@ -78,13 +78,17 @@ export default function ShoppingCart({requestPostOrder}) {
                             } else {
                                 return sendData.products[x.productId] = 1;
                             }
+                            
                         });
                         
                     requestPostOrder.request(userJWT, '/customer/buy', sendData);
+                    context.empty();
+                    setAddress();
+                    setPayment(false);
                 }}>
                     Confirm Order
             </button>
-            <button onClick={() => setCard('')}>Edit Card</button>
+            
             </>
 
 
@@ -118,18 +122,23 @@ export default function ShoppingCart({requestPostOrder}) {
                                                     value={address}
                                                     onChange={ (e) => setAddress(e.target.value) } />
                                             </div>
+                                            {(payment == false ? (
+                                            <>
+                                            <Link to='/payment'>
+                                                <button>
+                                                    payment page
+                                                </button>
+                                            </Link>
+                                            </>)   : null)}
                              
                         </div>
-                        {order}
-                        
+                        {(payment != false ? (
+                            (order)
+                        )   : null)}
                     </div>
                 </div>
 
-                <Link to='/payment'>
-                    <button>
-                        payment page
-                    </button>
-                </Link>
+                
         </div>
     )
 }
