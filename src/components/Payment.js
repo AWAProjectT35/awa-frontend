@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Home from './Home';
 import { Context } from './Context';
 import styles from './Payment.module.css';
 
@@ -80,9 +81,9 @@ export default function Payment({payment, setPayment}) {
     function PaymentOptions() {
         return (
             <div className={styles.inputs}>
-                {Object.keys(inputs).map((key, i) => {
+                {Object.keys(inputs).map((key) => {
                     return (
-                        <div key={i}>
+                        <>
                             <input
                                 onChange={(e) => setPaymentType(e.target.value)}
                                 type='radio'
@@ -90,8 +91,8 @@ export default function Payment({payment, setPayment}) {
                                 id={key}
                                 checked={(paymentType === key) ? 'checked' : null}
                                 value={key} />
-                            <label htmlFor={key}>{inputs[key]}</label>
-                        </div>
+                            <label for={key}>{inputs[key]}</label>
+                        </>
                     )
                 })}
             </div>

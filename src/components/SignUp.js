@@ -49,9 +49,6 @@ export default function SignUp() {
             signupUIControls = <span style={{color: "red"}}>Error</span>
             break;
 
-        default:
-            break;
-
     }
   
     return (

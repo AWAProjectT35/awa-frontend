@@ -17,4 +17,6 @@ export default function RestaurantsManager({requestGetRestaurants}) {
             <RestaurantManagerAdd />
         </div>
     )
+
+    return (null)
 }
