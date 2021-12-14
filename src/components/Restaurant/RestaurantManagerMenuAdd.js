@@ -3,6 +3,9 @@ import { useParams } from 'react-router'
 import styles from './RestaurantManagerMenuAdd.module.css';
 import {useData} from '../DataProvider';
 import axios from 'axios';
+import Constants from '../Constants.json';
+
+const axios2 = require('axios').default;
 
 export default function RestaurantManagerMenuAdd({requestPostMenu, requestGetMenu}) {
 
@@ -97,19 +100,29 @@ export default function RestaurantManagerMenuAdd({requestPostMenu, requestGetMen
                         onClick={() => {
                             let newProduct = {
                                 'name': name,
-                                'category': category,
                                 'description': description,
+                                'price': parseFloat(price),
                                 'image': image,
-                                'price': parseFloat(price)
+                                'category': category
                             };
 
                             let route = '/manager/restaurants/'
                                 + params.id
                                 + '/products';
 
-                            requestPostMenu.request(userJWT, route, newProduct);
+                            let axiosHeaders = {'headers': {'Authorization': 'Bearer ' + userJWT}};
 
-                            requestGetMenu.request(userJWT, '/manager/restaurants');
+                            console.log('new', newProduct)
+
+                            axios2.post(Constants.API_ADDRESS + route, newProduct, axiosHeaders)
+                                .then((response) => {
+                                    console.log('data sent ', response.data);
+                                    requestGetMenu.request(userJWT, '/manager/restaurants');
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                })
+
                     }}>
                         Save product
                     </button>

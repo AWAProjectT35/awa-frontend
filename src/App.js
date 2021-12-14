@@ -69,8 +69,11 @@ function App() {
 
     const requestPostOrder = new RequestPost();
 
+    const [ menu, setMenu ] = useState();
     const [payment, setPayment] = useState(false);
     const [ search, setSearch ] = useState('');
+
+    const requestGetMenuManager = new RequestGet(menu, setMenu);
     //CONSTS END
     
     //FUNCTIONS
@@ -212,15 +215,15 @@ function App() {
 
                     <Route path="/restaurants/menu/:id"
                         element={<RestaurantManagerMenu
-                            requestGetMenu={requestGetMenu} />}
+                            requestGetMenu={requestGetMenuManager} />}
                     >
                         <Route path="new"
                             element={<RestaurantManagerMenuAdd
                                 requestPostMenu={requestPostMenu}
-                                requestGetMenu={requestGetMenu} />} />
+                                requestGetMenu={requestGetMenuManager} />} />
                         <Route path=":productId"
                             element={<RestaurantManagerProduct
-                                requestGetMenu={requestGetMenu} /> } />
+                                requestGetMenu={requestGetMenuManager} /> } />
                     </Route>
                 </Route>
             </>
