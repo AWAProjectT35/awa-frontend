@@ -6,7 +6,7 @@ import {useParams} from 'react-router';
 
 export default function RestaurantsManagerMenu({requestGetMenu}) {
 
-    const {userJWT, restaurants} = useData();
+    const {userJWT} = useData();
     const params = useParams();
 
     //TODO: test if moving useState() to previous component forces reloading data if chaged
@@ -17,7 +17,7 @@ export default function RestaurantsManagerMenu({requestGetMenu}) {
 
     useEffect(() => {
         requestGetMenu.request(userJWT, '/public/restaurants/' + params.id + '/menu');
-    }, [])
+    })
 
     return (
         <div className={styles.container}>

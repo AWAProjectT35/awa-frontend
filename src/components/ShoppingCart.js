@@ -20,7 +20,7 @@ export default function ShoppingCart({requestPostOrder}) {
     
         const marker = [];
 
-        if(card.length == 16)
+        if(card.length === 16)
         marker[0] = <span className={styles.greenMarker}></span>
         else 
             marker[0] = <span className={styles.redMarker}></span> 
@@ -30,7 +30,7 @@ export default function ShoppingCart({requestPostOrder}) {
             else 
                 marker[1] = <span className={styles.redMarker}></span> 
             
-                if(cvc.length == 3)
+                if(cvc.length === 3)
                 marker[2] = <span className={styles.greenMarker}></span>
                 else 
                     marker[2] = <span className={styles.redMarker}></span> 
@@ -66,7 +66,7 @@ export default function ShoppingCart({requestPostOrder}) {
         </>
 
             
-            if( card.length == 16 && name.length > 10 && cvc.length == 3 )
+            if( card.length === 16 && name.length > 10 && cvc.length === 3 )
             
                 order = <><button className={styles.orderButton}
                     onClick={() => {
@@ -74,9 +74,9 @@ export default function ShoppingCart({requestPostOrder}) {
                     let sendData = {"products": {},"deliveryAddress": address};
                         context.cart.map((x) => {
                             if (x.productId in sendData.products) {
-                                sendData.products[x.productId] += 1;
+                                return sendData.products[x.productId] += 1;
                             } else {
-                                sendData.products[x.productId] = 1;
+                                return sendData.products[x.productId] = 1;
                             }
                         });
                         

@@ -1,5 +1,5 @@
 import { React, useEffect, useState} from 'react'
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './RestaurantManagerOrder.module.css'
 import {useData} from '../DataProvider';
 import { RequestGet } from '../../Tools/requestClasses';
@@ -30,9 +30,9 @@ export default function RestaurantManagerOrder({
         });
     const requestGetOrder = new RequestGet();
     const restaurant = requestGetRestaurants.getStateVar().find((r) => 
-        r.restaurantId == params.id);
+        r.restaurantId === params.id);
     const foundOrder = requestGetOrders.getStateVar().find((o) =>
-        o.orderId == params.orderId);
+        o.orderId === params.orderId);
 
     const productKeys = {
         // 'orderId': 'ID',
@@ -154,7 +154,7 @@ export default function RestaurantManagerOrder({
                 </div>
             </div>
 
-            {(order.details.orderStatus == 0) ? (
+            {(order.details.orderStatus === 0) ? (
                     <>
                         <input
                             type="time"

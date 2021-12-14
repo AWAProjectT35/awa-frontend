@@ -20,7 +20,7 @@ export default function OrderHistory({userJWT}) {
     useEffect(() => {
         requestGetOrders.request(userJWT, '/customer/orders')
         console.log('requestGetOrders', requestGetOrders);
-    }, [])
+    })
 
     return (
         <div className={styles.container}>

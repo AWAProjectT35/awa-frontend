@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Home from './Home';
 import { Context } from './Context';
 import styles from './Payment.module.css';
 
