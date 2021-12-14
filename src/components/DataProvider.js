@@ -2,7 +2,6 @@ import React, {createContext, useState, useContext} from 'react';
 import axios from 'axios';
 import Constants from './Constants';
 import jwt from 'jsonwebtoken';
-import { Context } from './Context';
 
 const DataContext = createContext();
 export const useData = () => useContext(DataContext);
@@ -13,7 +12,7 @@ const jwtFromStorage = window.localStorage.getItem("userJWT");
 export default function DataProvider({children}) {
 
     //CONSTANTS
-    const [userJWT, setUserJWT] = useState(jwtFromStorage);
+    const [userJWT] = useState(jwtFromStorage);
     const jwtDecoded = jwt.decode(userJWT);
 
     const [restaurants, setRestaurants] = useState([]);

@@ -33,9 +33,9 @@ export default function CustomerOrder() {
 
     useEffect(() => {
         requestGetOrder.request(userJWT, '/customer/orders/' + params.id);
-    }, [])
+    })
 
-    const foundOrder = requestGetOrders.getStateVar().map((o) => o.orderId == params.id);
+    const foundOrder = requestGetOrders.getStateVar().map((o) => o.orderId === params.id);
     if (typeof foundOrder === 'undefined') {
         return (
             <div>
@@ -97,7 +97,7 @@ export default function CustomerOrder() {
                 })}
             </div>
 
-            {(order.details.orderStatus == 3) ? <ConfirmDelivery /> : null}
+            {(order.details.orderStatus === 3) ? <ConfirmDelivery /> : null}
         </div>
     )
 }

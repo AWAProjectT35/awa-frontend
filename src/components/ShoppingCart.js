@@ -14,17 +14,69 @@ export default function ShoppingCart({requestPostOrder, payment, setPayment}) {
 
     const [address, setAddress] = useState('');
 
-   
-        let order;
-        order = <><button className={styles.orderButton}
+    const [card, setCard] = useState('');
+    const [name, setName] = useState('');
+    const [cvc, setCvc] = useState('');
+    
+        const marker = [];
+
+        if(card.length === 16)
+        marker[0] = <span className={styles.greenMarker}></span>
+        else 
+            marker[0] = <span className={styles.redMarker}></span> 
+            
+            if(name.length > 10)
+            marker[1] = <span className={styles.greenMarker}></span>
+            else 
+                marker[1] = <span className={styles.redMarker}></span> 
+            
+                if(cvc.length === 3)
+                marker[2] = <span className={styles.greenMarker}></span>
+                else 
+                    marker[2] = <span className={styles.redMarker}></span> 
+    
+        let order = <>
+            <div className={styles.addText}>
+                <div >Card Number: 
+                    <input
+                    type="text"
+                    value={card}
+                    onChange={ (e) => setCard(e.target.value) } />
+                    {marker[0]}
+                </div>
+                {marker[0]}
+           
+                <div > Cardholder Name: 
+                <input
+                type="text"
+                value={name}
+                onChange={ (e) => setName(e.target.value) } />
+                </div>
+                {marker[1]}
+
+                <div > CVC: 
+                <input className={styles.inputLength}
+                type="text"
+                value={cvc}
+                onChange={ (e) => setCvc(e.target.value) } />                
+                </div>
+                {marker[2]}
+                
+            </div>
+        </>
+
+            
+            if( card.length === 16 && name.length > 10 && cvc.length === 3 )
+            
+                order = <><button className={styles.orderButton}
                     onClick={() => {
             
                     let sendData = {"products": {},"deliveryAddress": address};
                         context.cart.map((x) => {
                             if (x.productId in sendData.products) {
-                                sendData.products[x.productId] += 1;
+                                return sendData.products[x.productId] += 1;
                             } else {
-                                sendData.products[x.productId] = 1;
+                                return sendData.products[x.productId] = 1;
                             }
                             
                         });

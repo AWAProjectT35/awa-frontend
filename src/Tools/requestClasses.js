@@ -12,7 +12,7 @@ class Request {
     stateVarFnc;
 
     constructor(stateVar = false, stateVarFnc = false) {
-        if (this.constructor == Request) {
+        if (this.constructor === Request) {
             throw new Error("Abstract classes can't be instantiated.");
         }
 
@@ -66,7 +66,7 @@ class RequestGet extends Request {
         axios.get(this.baseUrl + apiRoute, this.getHeaders(codedJWT))
             .then((response) => {
                 console.log('RequestGet: ', response.data);
-                if (this.stateVarFnc != false) this.stateVarFnc(response.data);
+                if (this.stateVarFnc !== false) this.stateVarFnc(response.data);
                 else this.stateVar = response.data;
             })
             .catch((error) => {
@@ -112,7 +112,7 @@ class RequestPost extends Request {
         axios.post(this.baseUrl + apiRoute, sendData, this.getHeaders(codedJWT))
             .then((response) => {
                 console.log('RequestPost: ', response.data);
-                if (this.stateVarFnc != false) this.stateVarFnc(response.data);
+                if (this.stateVarFnc !== false) this.stateVarFnc(response.data);
             })
             .catch((error) => {
                 console.log('RequestPost: ', error);
@@ -135,7 +135,7 @@ class RequestPut extends Request {
         axios.put(this.baseUrl + apiRoute, sendData, this.getHeaders(codedJWT))
             .then((response) => {
                 console.log('RequestPut: ', response.data);
-                if (this.stateVarFnc != false) this.stateVarFnc(response.data);
+                if (this.stateVarFnc !== false) this.stateVarFnc(response.data);
             })
             .catch((error) => {
                 console.log('RequestPut: ', error);

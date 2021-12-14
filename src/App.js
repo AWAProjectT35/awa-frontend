@@ -1,6 +1,5 @@
 import { useState, useReducer } from 'react';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
-import  { v4 as uuidv4 } from 'uuid';
 import  jwt  from 'jsonwebtoken';
 import { Context } from './components/Context';
 
@@ -15,8 +14,6 @@ import RestaurantManagerProduct from './components/Restaurant/RestaurantManagerP
 import { RestaurantMenu } from './components/RestaurantMenu';
 import { RestaurantManagerView } from './components/Restaurant/RestaurantManagerView';
 import RestaurantManagerOrder from './components/Restaurant/RestaurantManagerOrder';
-import { menuData } from './data.menu';
-import orders from './data.order.json';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Account from './components/Account/Account';
@@ -26,15 +23,10 @@ import OrderHistory from './components/Account/OrderHistory';
 import CustomerOrder from './components/Account/CustomerOrder';
 import Payment from './components/Payment';
 import ShoppingCart from './components/ShoppingCart'
-import Footer from './components/Footer';
 
 import {useData} from './components/DataProvider';
 
 import {RequestGet, RequestGetRestaurants, RequestPost, RequestPut} from './Tools/requestClasses';
-
-
-// axios constants
-const axios = require('axios').default;
 
 
 const currencyOptions = {
@@ -76,7 +68,6 @@ function App() {
     const requestPutRestaurant = new RequestPut();
 
     const requestPostOrder = new RequestPost();
-    const requestGetUsers = new RequestGet();
 
     const [payment, setPayment] = useState(false);
     //CONSTS END
@@ -116,7 +107,7 @@ function App() {
              setCart({ data, type: 'add' })
         } else {
             let id = cart.length -1;
-            if(cart[id].restaurantId != restaurant)
+            if(cart[id].restaurantId !== restaurant)
                 alert("Cart contains products from multiple restaurants, please empty cart before continuing.");
             else
             setCart({ data, type: 'add' }) 
