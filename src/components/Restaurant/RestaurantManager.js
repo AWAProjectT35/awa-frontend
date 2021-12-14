@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styles from './RestaurantManager.module.css'
 import { RequestGet } from '../../Tools/requestClasses';
 import { useData } from '../DataProvider';
-import Restaurants from '../Restaurants';
 
 
 export default function RestaurantManager({restaurant}) {
@@ -41,7 +40,7 @@ export default function RestaurantManager({restaurant}) {
                             Orders: {requestGetOrders.getStateVar().length}
                             <br />
                             New Orders: {requestGetOrders.getStateVar().filter(order =>
-                                order.orderStatus == 0).length}
+                                order.orderStatus === 0).length}
                         </div>
                     </div>
                 </div>

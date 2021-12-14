@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import {GetProduct} from '../Tools';
 import styles from './RestaurantManagerProduct.module.css';
 
 export default function RestaurantManagerProduct({requestGetMenu}) {
@@ -9,7 +8,7 @@ export default function RestaurantManagerProduct({requestGetMenu}) {
 
     const menu = requestGetMenu.getStateVar();
 
-    let product = menu.find((p) => p.productId == params.productId);
+    let product = menu.find((p) => p.productId === params.productId);
     if (typeof product === 'undefined') {
         product = {
             'name': '',
@@ -46,7 +45,7 @@ export default function RestaurantManagerProduct({requestGetMenu}) {
                 <div >{product.category}</div>
                 <div className={styles.tag}>Description</div>
                 <div >{product.description}</div>
-                <img src={product.image}></img>
+                <img src={product.image} alt={product.image} />
             </div>
 
         </div>

@@ -13,7 +13,7 @@ export default function RestaurantsManagerManage({requestGetRestaurants, request
     console.log('put', requestGetRestaurants)
 
     let foundRestaurant = false;
-    let restaurant = restaurants.find((r) => r.restaurantId == params.id);
+    let restaurant = restaurants.find((r) => r.restaurantId === params.id);
 
     if (typeof restaurant === 'undefined') {
         restaurant = {
@@ -175,7 +175,7 @@ export default function RestaurantsManagerManage({requestGetRestaurants, request
                         </form>
                             <button type="button" onClick={() => {
                                 let files = document.getElementById("myFile")
-                                if (files.files.length != 0) {
+                                if (files.files.length !== 0) {
                                     let element = document.getElementById("imageUpload")
                                     let data = new FormData(element)
                                     console.log(data)
